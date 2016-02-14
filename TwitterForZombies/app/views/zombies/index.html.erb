@@ -20,7 +20,7 @@
         <td><%= zombie.brain.flavor %></td>
         <td><%= link_to 'Show', zombie %></td>
         <td><%= link_to 'Edit', edit_zombie_path(zombie) %></td>
-        <td><%= link_to 'Destroy', zombie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', zombie, method: :delete, remote: true, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

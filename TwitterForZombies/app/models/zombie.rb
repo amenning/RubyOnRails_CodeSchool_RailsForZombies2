@@ -4,6 +4,10 @@ class Zombie < ActiveRecord::Base
   
   private
   
+  def as_json(options = nil)
+    super(options || {include: :brain, except: [:created_at, :updated_at, :id]})
+  end
+  
   def decomp_change_notification
     ZombieMailer.decomp_change(self).deliver
   end

@@ -10,6 +10,21 @@ class ZombiesController < ApplicationController
   # GET /zombies/1
   # GET /zombies/1.json
   def show
+    @zombie = Zombie.find(params[:id])
+    responds_to do |format|
+      format.html do 
+        if @zombie.decomp == 'Dead (again)'
+          render :dead_again
+        end
+      end
+      format.json do
+        if @zombie.decomp == 'Dead (again)'
+          render json: @zombie, status: :unprocessable_entity
+        else
+          render json: @zombie, status: :ok
+        end
+      end
+    end
   end
 
   # GET /zombies/new
@@ -57,7 +72,8 @@ class ZombiesController < ApplicationController
     @zombie.destroy
     respond_to do |format|
       format.html { redirect_to zombies_url, notice: 'Zombie was successfully destroyed.' }
-      format.json { head :no_content }
+      format.json { head :ok }
+      format.js
     end
   end
 
